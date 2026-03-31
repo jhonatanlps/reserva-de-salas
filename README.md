@@ -150,25 +150,3 @@ Esses diagramas representam a interação dos usuários com o sistema e o fluxo 
 *(Inserir aqui imagens dos diagramas exportadas do Whimsical ou Miro)*
 
 ---
-
-## 🛠️ Tecnologias Utilizadas
-
-*(Preencher quando a implementação for definida)*
-
-Exemplo:
-
-* Frontend: React
-* Backend: Node.js
-* Banco de Dados: PostgreSQL
-
----
-
-## 📅 Status do Projeto
-
-Checkpoint 1 – Levantamento de requisitos e modelagem inicial concluídos.
-
----
-
-## 📄 Licença
-
-Este projeto foi desenvolvido para fins acadêmicos na disciplina de Engenharia de Software da FIAP.
