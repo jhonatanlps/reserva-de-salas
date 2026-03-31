@@ -138,15 +138,8 @@ Isso torna o processo mais eficiente, transparente e acessível para todos os en
 
 ---
 
-## 🧱 Modelagem do Sistema
+## 🧱 Funcionamento do Sistema
 
-O sistema foi modelado utilizando UML, incluindo:
-
-* Diagrama de Casos de Uso
-* Diagrama de Atividades
-
-Esses diagramas representam a interação dos usuários com o sistema e o fluxo interno dos processos de reserva.
-
-*(Inserir aqui imagens dos diagramas exportadas do Whimsical ou Miro)*
+Video do teste do sistema (https://youtu.be/H9c8daBbPYE)
 
 ---
