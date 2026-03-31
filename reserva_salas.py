@@ -96,3 +96,51 @@ def menu(usuario, solicitacoes, reservas, salas):
                 case _:
                     
                     print("Opção invalida, tente novamente.")
+
+#UC-03: Buscar salas
+def buscar_salas(reservas, solicitacoes, salas, usuario):
+    #usuario faz a solicitação de reserva
+    while(True):
+        print()
+        for k in salas.keys():
+            print(f"{k}")
+        unidade = input("\nEm qual unidade deseja reservar?\n").capitalize()
+        
+        if unidade in salas:
+            for v in salas[unidade].keys():
+                if salas[unidade][v] >= usuario.get_nivel():
+                    print(f"- {v}")
+            
+            sala = input("\nQual sala deseja reservar?\n").lower()
+            if sala in salas[unidade]:
+                if usuario.get_nivel() <= salas[unidade][sala]:
+                    data = input("\nQual seria a data?\n")
+                    horario = input("\nQual seria o horario?\n")
+                    
+                    solicitacao = Solicitacao(unidade, sala, data, horario, usuario)
+                    if verificar_disponibilidade(reservas, solicitacao):
+                        solicitacoes.append(solicitacao)
+                        print("\nSolicitação feita, aguarde a aprovação.")
+                        break
+                    else:
+                        print("Nenhuma sala encontrada para os critérios informados.")
+                else:
+                    print("Sem permissão para reservar essa sala, tente novamente.")
+            else:
+                print("Essa sala não existe, tente novamente.")
+        else:
+            print("Essa unidade não existe, tente novamente.")
+            
+        #Saída esperada:
+        #Solicitação feita, aguarde a aprovação.")
+                        
+#UC-04: Verificar disponibilidade                  
+def verificar_disponibilidade(reservas, solicitacao):
+    #Verifica se a solicitação esta disponivel
+    disponivel = True
+    
+    for i in reservas:
+        if i.get_unidade() == solicitacao.get_unidade() and i.get_sala() == solicitacao.get_sala() and i.get_mes() == solicitacao.get_mes() and i.get_dia() == solicitacao.get_dia() and i.get_horario() == solicitacao.get_horario():
+            disponivel = False
+    
+    return disponivel
