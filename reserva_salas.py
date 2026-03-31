@@ -144,3 +144,25 @@ def verificar_disponibilidade(reservas, solicitacao):
             disponivel = False
     
     return disponivel
+
+    #UC-07: Cancelar reserva
+def cancelar_reservas(reservas, usuario):
+    #cancela a reserva
+    if len(reservas) > 0:
+        c = 1
+        for i in reservas:
+            if usuario.get_email() == i.get_usuario().get_email() and usuario.get_nivel() in (1, 2):
+                print(f"{c} - {i.get_unidade()} - {i.get_sala()} - {i.get_data()} - {i.get_horario()} - {i.get_usuario().get_nome()} - {i.get_status()}\n")
+            elif usuario.get_nivel() == 0:
+                print(f"{c} - {i.get_unidade()} - {i.get_sala()} - {i.get_data()} - {i.get_horario()} - {i.get_usuario().get_nome()} - {i.get_status()}\n")
+            c =+ 1  
+            
+        reserva = int(input("Qual reserva deseja cancelar?\n"))
+        reservas.pop(reserva-1)
+        print("Reserva cancelada com sucesso!\n")
+            
+    else:
+        print("\nSem solicitações no momento.\n")
+        
+    #Saída esperada:
+    #Reserva cancelada com sucesso!
