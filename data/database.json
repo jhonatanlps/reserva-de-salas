@@ -1,0 +1,130 @@
+{
+    "datas": [
+        "01-04-2026",
+        "02-04-2026",
+        "06-04-2026",
+        "07-04-2026"
+    ],
+    "horarios": [
+        "08:00-10:00",
+        "10:00-12:00",
+        "12:00-14:00",
+        "14:00-16:00",
+        "16:00-18:00"
+    ],
+    "salas": [
+        {
+            "id": 1,
+            "nome": "Aclimacao unidade 1",
+            "salas": {
+                "sala de jogos": 1,
+                "laboratorio 1": 1,
+                "laboratorio 2": 1,
+                "laboratorio 3": 1,
+                "maker lab": 2
+            }
+        },
+        {
+            "id": 2,
+            "nome": "Aclimacao unidade 2",
+            "salas": {
+                "sala 101": 1,
+                "sala 102": 1,
+                "sala 103": 1,
+                "sala 104": 1,
+                "sala 201": 1,
+                "sala 202": 1,
+                "sala 203": 1,
+                "sala 204": 1
+            }
+        },
+        {
+            "id": 3,
+            "nome": "Paulista",
+            "salas": {
+                "sala 101": 1,
+                "sala 102": 1,
+                "sala 103": 1,
+                "sala 104": 1,
+                "sala 201": 1,
+                "sala 202": 1,
+                "sala 203": 1,
+                "sala 204": 1,
+                "laboratorio 1": 1,
+                "laboratorio 2": 1,
+                "laboratorio 3": 1,
+                "maker lab": 2
+            }
+        }
+    ],
+    "solicitacoes": [
+        {
+            "unidade": 1,
+            "usuario": 1,
+            "sala": "sala de jogos",
+            "data": "01-04-2026",
+            "horario": "14:00-16:00",
+            "status": "pendente"
+        },
+        {
+            "unidade": 2,
+            "usuario": 2,
+            "sala": "laboratorio 1",
+            "data": "06-04-2026",
+            "horario": "10:00-12:00",
+            "status": "pendente"
+        }
+    ],
+    "reservas": [
+        {
+            "id": 1,
+            "unidade": 1,
+            "usuario": 2,
+            "sala": "laboratorio 1",
+            "data": "02-04-2026",
+            "horario": "10:00-12:00"
+        },
+        {
+            "id": 2,
+            "unidade": 1,
+            "usuario": 1,
+            "sala": "sala de jogos",
+            "data": "07-04-2026",
+            "horario": "14:00-16:00"
+        },
+        {
+            "id": 3,
+            "unidade": 2,
+            "usuario": 3,
+            "sala": "sala 101",
+            "data": "01-04-2026",
+            "horario": "08:00-10:00"
+        }
+    ],
+    "usuarios": {
+        "rm0@fiap.com.br": {
+            "id": 1,
+            "nome": "Joao Silva",
+            "senha": "1",
+            "nivel": 2
+        },
+        "rm1@fiap.com.br": {
+            "id": 2,
+            "nome": "Maria Oliveira",
+            "senha": "2",
+            "nivel": 1
+        },
+        "rm2@fiap.com.br": {
+            "id": 3,
+            "nome": "Carlos Santos",
+            "senha": "3",
+            "nivel": 3
+        },
+        "rm4@fiap.com.br": {
+            "id": 4,
+            "nome": "Iury",
+            "senha": "4",
+            "nivel": 2
+        }
+    }
+}
