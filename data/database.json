@@ -59,19 +59,12 @@
     ],
     "solicitacoes": [
         {
-            "unidade": 1,
-            "usuario": 1,
-            "sala": "sala de jogos",
-            "data": "01-04-2026",
-            "horario": "14:00-16:00",
-            "status": "pendente"
-        },
-        {
+            "id": 1,
             "unidade": 2,
-            "usuario": 2,
             "sala": "laboratorio 1",
             "data": "06-04-2026",
             "horario": "10:00-12:00",
+            "usuario": 2,
             "status": "pendente"
         }
     ],
@@ -99,22 +92,38 @@
             "sala": "sala 101",
             "data": "01-04-2026",
             "horario": "08:00-10:00"
+        },
+        {
+            "id": 4,
+            "unidade": 1,
+            "usuario": 1,
+            "sala": "sala de jogos",
+            "data": "01-04-2026",
+            "horario": "14:00-16:00"
+        },
+        {
+            "id": 5,
+            "unidade": 3,
+            "usuario": 1,
+            "sala": "sala 104",
+            "data": "02-04-2026",
+            "horario": "12:00-14:00"
         }
     ],
     "usuarios": {
-        "rm0@fiap.com.br": {
+        "rm1@fiap.com.br": {
             "id": 1,
             "nome": "Joao Silva",
             "senha": "1",
             "nivel": 2
         },
-        "rm1@fiap.com.br": {
+        "rm2@fiap.com.br": {
             "id": 2,
             "nome": "Maria Oliveira",
             "senha": "2",
             "nivel": 1
         },
-        "rm2@fiap.com.br": {
+        "rm3@fiap.com.br": {
             "id": 3,
             "nome": "Carlos Santos",
             "senha": "3",

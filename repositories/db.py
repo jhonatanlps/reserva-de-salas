@@ -65,17 +65,24 @@ class db:
         with open(diretorio / "data" / "database.json", "r") as f:
             data = json.load(f)
 
-        load_users = []
-        load_solicitacao = []
-        load_reservas = []
+        load_users: list[Usuario] = []
+        load_solicitacao: list[Solicitacao] = []
+        load_reservas: list[Reserva] = []
 
         for email, usuario in data["usuarios"].items():
             load_usuario = Usuario(usuario["id"], usuario["nome"], email, usuario["senha"], usuario["nivel"])
             load_users.append(load_usuario)        
 
         for solicitacao in data["solicitacoes"]:
-            solicitacao = Solicitacao(solicitacao["unidade"], solicitacao["sala"], solicitacao["data"], solicitacao["horario"], solicitacao["usuario"])
-            load_solicitacao.append(solicitacao)
+            unidade = solicitacao.get("unidade")
+            # tolera arquivos já "corrompidos" onde unidade foi salva como dict
+            if isinstance(unidade, dict):
+                unidade = unidade.get("id")
+
+            obj = Solicitacao(unidade, solicitacao["sala"], solicitacao["data"], solicitacao["horario"], solicitacao["usuario"])
+            if "status" in solicitacao:
+                obj.set_status(solicitacao["status"])
+            load_solicitacao.append(obj)
 
         for reserva in data["reservas"]:
             reserva = Reserva(reserva["id"], reserva["unidade"], reserva["usuario"], reserva["sala"], reserva["data"], reserva["horario"])
@@ -88,17 +95,46 @@ class db:
         self.set_usuarios(load_users)
         self.set_solicitacoes(load_solicitacao)
 
-    def save_database(self):
+    def save_database(self, reservas: list[Reserva], solicitacoes: list[Solicitacao], usuarios: list[Usuario]):
         """ Salva os dados das variáveis da classe no arquivo JSON. """
 
-        data = {
-            "salas": self.get_salas(),
-            "solicitacoes": self.get_solicitacoes(),
-            "reservas": self.get_reservas(),
-            "usuarios": self.get_usuarios(),
-            "datas": self.get_datas(),
-            "horarios": self.get_horarios()
-        }
+        with open(diretorio / "data" / "database.json", "r") as f:
+            data = json.load(f)
+
+        data["usuarios"] = {}
+        data["solicitacoes"] = []
+        data["reservas"] = []
+
+        for usuario in usuarios:
+            data["usuarios"][usuario.get_email()] = {
+                "id": usuario.get_id(),
+                "nome": usuario.get_nome(),
+                "senha": usuario.get_senha(),
+                "nivel": usuario.get_nivel()
+            }
+
+        for solicitacao in solicitacoes:
+            unidade = solicitacao.get_unidade()
+            if isinstance(unidade, dict):
+                unidade = unidade.get("id")
+            data["solicitacoes"].append({
+                "unidade": int(unidade) if unidade is not None else unidade,
+                "sala": solicitacao.get_sala(),
+                "data": solicitacao.get_data(),
+                "horario": solicitacao.get_horario(),
+                "usuario": int(solicitacao.get_usuario()),
+                "status": solicitacao.get_status()
+            })
+        
+        for reserva in reservas:
+            data["reservas"].append({
+                "id": reserva.get_id_reserva(),
+                "unidade": int(reserva.get_id_unidade()),
+                "usuario": int(reserva.get_usuario()),
+                "sala": reserva.get_nome_sala(),
+                "data": reserva.get_data(),
+                "horario": reserva.get_horario()
+            })
 
         with open(diretorio / "data" / "database.json", "w") as f:
             json.dump(data, f, indent=4)

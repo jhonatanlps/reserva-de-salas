@@ -1,3 +1,4 @@
+import bcrypt
 from models.solicitacao import Solicitacao
 from models.usuario import Usuario
 
@@ -9,11 +10,14 @@ def cadastrar(usuarios: list[Usuario], solicitacoes: list[Solicitacao], reservas
     
     nome = input("\nDigite o seu nome: ")
     email = input("Digite seu email: ")
-    senha = input("Digite sua senha: ") 
+    senha = input("Digite sua senha: ")
+    
+    hashsenha = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt()) 
+    hashstring = hashsenha.decode('utf-8')
 
     print("\nCadastrando usuário...")
 
-    usuario = Usuario(len(usuarios)+1, nome, email, senha, nivel)
+    usuario = Usuario(len(usuarios)+1, nome, email, hashstring, nivel)
 
     usuarios.append(usuario)
 

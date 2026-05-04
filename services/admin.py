@@ -1,4 +1,6 @@
 from models.usuario import Usuario
+from models.solicitacao import Solicitacao
+from models.reserva import Reserva
 
 class Admin(Usuario):
     def __init__(self, nome, email, senha, nivel):
@@ -9,7 +11,8 @@ class Admin(Usuario):
         if len(solicitacoes) > 0:
 
             for i, solicitacao in enumerate(solicitacoes):
-                print(f"\n({i}) - Detalhes: \n\t - Unidade: {salas[solicitacao.get_unidade()]['nome']} \n\t - Sala: {solicitacao.get_sala()} \n\t - Data: {solicitacao.get_data()} \n\t - Horário: {solicitacao.get_horario()} \n\t - Status: {solicitacao.get_status()}")
+                unidade_idx = solicitacao.get_unidade() - 1
+                print(f"\n({i}) - Detalhes: \n\t - Unidade: {salas[unidade_idx]['nome']} \n\t - Sala: {solicitacao.get_sala()} \n\t - Data: {solicitacao.get_data()} \n\t - Horário: {solicitacao.get_horario()} \n\t - Status: {solicitacao.get_status()}")
 
             solicitacao = int(input("\nQual solicitação deseja aprovar ou negar?\n"))
 
@@ -23,14 +26,24 @@ class Admin(Usuario):
                 aprovacao = int(input("Opção:"))
 
                 if aprovacao == 1:
-                    solicitacoes[solicitacao].set_status("Aprovado")
-                    reservas.append(solicitacoes[solicitacao])
+                    solic = solicitacoes[solicitacao]
+                    solic.set_status("Aprovado")
+
+                    prox_id = max((r.get_id_reserva() for r in reservas), default=0) + 1
+                    nova_reserva = Reserva(
+                        prox_id,
+                        solic.get_unidade(),
+                        solic.get_usuario(),
+                        solic.get_sala(),
+                        solic.get_data(),
+                        solic.get_horario()
+                    )
+                    reservas.append(nova_reserva)
                     solicitacoes.pop(solicitacao)
                     print("\nSolicitação aprovada!")
 
                 elif aprovacao == 2:
                     solicitacoes[solicitacao].set_status("Negado")
-                    solicitacoes[solicitacao].get_usuario().set_reservas(solicitacoes[solicitacao])
                     solicitacoes.pop(solicitacao)
                     print("\nSolicitação negada!")
 
@@ -78,4 +91,3 @@ class Admin(Usuario):
                 print(f"{i.get_unidade()} - {i.get_sala()} - {i.get_data()} - {i.get_horario()} - {i.get_usuario().get_nome()} - {i.get_usuario().get_email()} - {i.get_status()}")
         else:
             print("Sem historico no momento.")
-        
