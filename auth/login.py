@@ -1,4 +1,3 @@
-import bcrypt
 from models.solicitacao import Solicitacao
 from models.usuario import Usuario
 
@@ -13,8 +12,7 @@ def login(usuarios: list[Usuario], solicitacoes: list[Solicitacao], reservas: li
         
         for usuario in usuarios:
             if usuario.get_email() == email:
-                hash_salvo = usuario.get_senha().encode('utf-8')
-                if bcrypt.checkpw(senha.encode('utf-8'), hash_salvo):
+                if usuario.get_senha() == senha:
                     print("Logado com sucesso. Sejam bem-vindo(a)!")
                     continuar = False
                     return True, usuario
