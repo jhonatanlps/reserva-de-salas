@@ -1,145 +1,99 @@
-# Sistema de Reserva de Salas – FIAP
+# Sistema de Reserva de Salas - FIAP
 
-## 📌 Descrição do Projeto
+## Visão geral
 
-Este projeto tem como objetivo desenvolver um sistema web para gerenciamento de reservas de salas da FIAP, permitindo que estudantes e professores solicitem agendamentos de forma organizada, enquanto a administração possui controle centralizado das solicitações e disponibilidade dos espaços.
+Este projeto é uma aplicação em linha de comando para gerenciamento de reservas de salas da FIAP. O sistema permite cadastro de usuários, autenticação com senha criptografada, solicitação de reservas, aprovação ou recusa por administrador, cancelamento e manutenção do histórico em arquivo JSON.
 
-O sistema busca substituir o processo atual baseado em e-mails, que apresenta problemas de desorganização, falta de padronização e dificuldade no acompanhamento das reservas. 
+O objetivo é centralizar o fluxo que antes era feito manualmente, oferecendo mais organização no controle de salas, horários e permissões de acesso.
 
----
+## Funcionalidades atuais
 
-## 🎯 Objetivo
+* cadastro de usuários com nível de acesso
+* login com validação de senha usando bcrypt
+* busca de salas por unidade, data e horário
+* criação de solicitações de reserva
+* aprovação ou negação de solicitações pelo administrador
+* criação automática de reservas aprovadas
+* cancelamento de reservas por usuário ou administrador
+* restrição de acesso por sala, com níveis de permissão
+* persistência dos dados em `data/database.json`
 
-Criar uma aplicação que permita:
+## Perfis de acesso
 
-* visualizar salas disponíveis
-* solicitar reservas de forma padronizada
-* acompanhar o status das solicitações
-* manter histórico de agendamentos
-* melhorar a comunicação entre usuários e administração
+* `1 - Professor`: pode buscar salas e cancelar suas reservas
+* `2 - Aluno`: pode buscar salas e cancelar suas reservas
+* `3 - Administrador`: pode analisar solicitações, aprovar ou negar reservas, cancelar reservas e restringir acesso às salas
 
----
+## Requisitos do projeto
 
-## 👥 Integrantes do Grupo
+* Python 3.x
+* Dependência principal: `bcrypt`
 
-* Vanessa Iris Nobre Ribas – RM 559211
-* Kethely Ester da Silva – RM 559187
-* Iury Cardoso Araujo – RM 558850
-* Bruno Takaya – RM 554986
-* Jhonatan Lopes da Silva – RM 559174 
+Instalação:
 
----
+```bash
+pip install -r requirements.txt
+```
 
-## 🚨 Problema Identificado
+## Como executar
 
-A instituição apresenta dificuldades no controle e na liberação de acesso às salas e espaços acadêmicos. Atualmente, as solicitações são feitas por e-mail, o que gera:
+```bash
+python main.py
+```
 
-* falta de organização
-* retrabalho
-* dificuldade de acompanhamento
-* pouca transparência no processo 
+Ao iniciar, o sistema carrega os dados de `data/database.json` e, ao encerrar, salva as alterações no mesmo arquivo.
 
----
+## Estrutura do projeto
 
-## 💡 Solução Proposta
+```text
+main.py
+auth/
+	login.py
+	signin.py
+data/
+	database.json
+models/
+	reserva.py
+	solicitacao.py
+	usuario.py
+repositories/
+	db.py
+services/
+	admin.py
+	reserva_salas.py
+views/
+	login_window.py
+	main_window.py
+```
 
-Desenvolvimento de um sistema web que permita:
+## Como funciona o fluxo
 
-* visualização clara de salas e horários disponíveis
-* envio e acompanhamento de solicitações
-* cancelamento de reservas
-* notificações automáticas por e-mail
+1. O usuário informa se já possui conta.
+2. Se necessário, realiza o cadastro.
+3. Após o login, o sistema exibe o menu conforme o nível do usuário.
+4. O usuário consulta unidades, salas, datas e horários disponíveis.
+5. A solicitação é registrada como pendente.
+6. O administrador aprova ou nega a solicitação.
+7. As reservas e solicitações são salvas no JSON ao final da execução.
 
-Isso torna o processo mais eficiente, transparente e acessível para todos os envolvidos. 
+## Dados iniciais
 
----
+O arquivo `data/database.json` contém a base inicial do sistema, incluindo:
 
-## 👤 Personas do Sistema
+* usuários cadastrados
+* unidades e salas disponíveis
+* datas e horários configurados
+* solicitações pendentes
+* reservas já registradas
 
-### 🎓 Estudante – Adelaide
+## Integrantes do grupo
 
-* 20 anos
-* Precisa reservar salas para desenvolvimento de projetos e challenges
-* Deseja consultar disponibilidade, solicitar reservas e acompanhar status
+* Vanessa Iris Nobre Ribas - RM 559211
+* Kethely Ester da Silva - RM 559187
+* Iury Cardoso Araujo - RM 558850
+* Bruno Takaya - RM 554986
+* Jhonatan Lopes da Silva - RM 559174
 
-### 👩‍🏫 Professora – Filomena
+## Demonstração
 
-* Necessita reservar salas para aulas extras e reposições
-* Precisa consultar horários, solicitar com antecedência e visualizar histórico
-
-### 🏢 Administradora – Zuleica
-
-* Responsável por aprovar ou recusar solicitações
-* Gerencia disponibilidade e restrições de acesso
-* Acompanha o histórico geral de reservas 
-
----
-
-## 📋 Escopo do Sistema
-
-### Inclui
-
-* Login de usuários
-* Solicitação e cancelamento de reservas
-* Visualização de disponibilidade
-* Acompanhamento de status
-* Histórico de reservas
-* Notificações por e-mail
-
-### Não inclui (nesta versão)
-
-* Integração com sistemas acadêmicos externos
-* Controle de equipamentos das salas
-* Pagamentos ou cobranças por reservas 
-
----
-
-## ⚙️ Requisitos Funcionais
-
-| ID     | Descrição                                    | Prioridade |   |
-| ------ | -------------------------------------------- | ---------- | - |
-| RF-001 | Login com e-mail institucional               | Alta       |   |
-| RF-002 | Visualizar salas disponíveis                 | Alta       |   |
-| RF-003 | Solicitar reserva de sala                    | Alta       |   |
-| RF-004 | Acompanhar status da solicitação             | Alta       |   |
-| RF-005 | Cancelar reserva                             | Média      |   |
-| RF-006 | Enviar e-mail de confirmação                 | Alta       |   |
-| RF-007 | Enviar e-mail com status (aprovado/recusado) | Alta       |   |
-| RF-008 | Enviar e-mail de cancelamento                | Alta       |   |
-| RF-009 | Manter histórico de reservas                 | Média      |   |
-| RF-010 | Visualizar histórico                         | Média      |   |
-| RF-011 | Permitir reservas antecipadas                | Alta       |   |
-| RF-012 | Filtrar salas por unidade                    | Média      |   |
-| RF-013 | Bloquear áreas para usuários específicos     | Alta       |   |
-
----
-
-## 🔒 Requisitos Não Funcionais
-
-| ID      | Descrição                                             | Categoria       |   |
-| ------- | ----------------------------------------------------- | --------------- | - |
-| RNF-001 | Disponibilidade de 99.9%                              | Disponibilidade |   |
-| RNF-002 | Interface simples e intuitiva                         | Usabilidade     |   |
-| RNF-003 | Suporte a até 200 usuários simultâneos                | Desempenho      |   |
-| RNF-004 | Armazenamento seguro de senhas com bcrypt             | Segurança       |   |
-| RNF-005 | Criptografia de dados com AES                         | Segurança       |   |
-| RNF-006 | Logs armazenados por 5 anos                           | Segurança       |   |
-| RNF-007 | Processamento de agendamentos em até 3 segundos       | Desempenho      |   |
-| RNF-008 | Bloqueio após 5 tentativas de login inválidas         | Segurança       |   |
-| RNF-009 | Encerramento de sessão após 15 minutos de inatividade | Segurança       |   |
-
----
-
-## 🧭 Atores do Sistema
-
-* **Estudante** – realiza solicitações de reserva
-* **Professor** – realiza solicitações de reserva
-* **Administrador** – aprova, recusa e gerencia reservas
-
----
-
-## 🧱 Funcionamento do Sistema
-
-Video do teste do sistema (https://youtu.be/H9c8daBbPYE)
-
----
+Vídeo de teste do sistema: https://youtu.be/H9c8daBbPYE
