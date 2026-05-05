@@ -7,7 +7,7 @@ class Admin(Usuario):
         super().__init__(nome, email, senha, nivel)
         
     #UC-05
-    def reservar_sala(self, solicitacoes: list, reservas: list, usuarios: list, salas: dict) -> None:
+    def reservar_sala(self, solicitacoes: list[Solicitacao], reservas: list[Reserva], usuarios: list[Usuario], salas: list[dict]) -> None:
         if len(solicitacoes) > 0:
 
             for i, solicitacao in enumerate(solicitacoes):
@@ -55,39 +55,38 @@ class Admin(Usuario):
             print("Sem solicitações no momento.")
     
     #UC-06: Restrigir sala
-    def restringir_sala(self, salas: dict) -> None:
+    def restringir_sala(self, salas: list[dict]) -> None:
         while(True):
             print()
-            for k in salas.keys():
-                print(f"{k}")
-            unidade = input("\nDe qual unidade é a sala que deseja gerenciar restricoes?\n").capitalize()
             
-            if unidade in salas:
-                print()
-                for v in salas[unidade].keys():
-                    print(f"- {v}")
-                
-                sala = input("\nQual sala deseja gerenciar a restrição?\n").lower()
-                if sala in salas[unidade]:
-                    nivel = -1
-                    while nivel not in (0, 1, 2):
-                        nivel = int(input("""\nO que deseja fazer:\n0 - Bloquear\n1 - Deixar apenas para professores\n2 - Deixar para todos\n"""))
+            for _id, unidade in enumerate(salas):
+                print(f"({_id}) - {unidade['nome']}")
+            print("\nEm qual unidade deseja restringir acesso?")
+            id_unidade = int(input("Opção: "))
+            print("")
+
+            try:
+                if salas[id_unidade]:
+                    for _id, sala in enumerate(salas[id_unidade]['salas']):
+                        print(f"({_id}) - {sala}")
+                                                
+                    print("\nQual sala deseja restringir acesso?")
+                    sala = int(input("Opção: "))
+
+                    try:
+                        sala = list(salas[id_unidade]['salas'].keys())[sala]
                         
-                        if nivel in (0, 1, 2):
-                            salas[unidade][sala] = nivel
-                            print("\nRestrições alterada!")
-                            break    
+                        print("\nQual restrição deseja? \n1 - Todos\n2 - Apenas professores\n3 - Sem possibilidade de reserva\n")
+                        nivel = int(input("Opção: "))
+                        if nivel in (1, 2, 3):
+                            salas[id_unidade]["salas"][sala] = nivel
+                            print("Acesso restringido!")
+                            break
                         else:
-                            print("Opção inválida.")
-                    break
-                else:
-                    print("Essa sala não existe, tente novamente.")
-            else:
-                print("Essa unidade não existe, tente novamente.")
-            
-    def consulta_historico(self, historico: list) -> None:
-        if len(historico) > 0:
-            for i in historico:
-                print(f"{i.get_unidade()} - {i.get_sala()} - {i.get_data()} - {i.get_horario()} - {i.get_usuario().get_nome()} - {i.get_usuario().get_email()} - {i.get_status()}")
-        else:
-            print("Sem historico no momento.")
+                            print("Nivel invalido")
+                    except IndexError:
+                        print("Opção invalida, tente novamente.")
+                        continue
+            except IndexError:
+                print("Opção invalida, tente novamente.")
+                
