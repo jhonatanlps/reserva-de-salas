@@ -85,7 +85,9 @@ A escolha do bcrypt é fundamental para a segurança moderna, pois ele foi desen
 
 ### Referencias
 https://www-geeksforgeeks-org.translate.goog/python/how-to-hash-passwords-in-python/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true
+
 https://medium.com/py-bcrypt/encriptando-senhas-em-python-com-bcrypt-25e46b5c8166
+
 https://pypi.org/project/bcrypt/
 
 ## Dados iniciais
