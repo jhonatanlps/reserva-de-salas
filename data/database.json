@@ -114,25 +114,25 @@
         "rm1@fiap.com.br": {
             "id": 1,
             "nome": "Joao Silva",
-            "senha": "1",
+            "senha": "$2b$12$lBRbXf9sJkHF0H3uXJrIkOH6WA8vIWax8nOSkHbkjyTSfv6DeGaKy",
             "nivel": 2
         },
         "rm2@fiap.com.br": {
             "id": 2,
             "nome": "Maria Oliveira",
-            "senha": "2",
+            "senha": "$2b$12$c8wyBtgXOSbJJwTwO50fJeXsgq1JNofHEoYGrNjcn//qhie3sWo7.",
             "nivel": 1
         },
         "rm3@fiap.com.br": {
             "id": 3,
             "nome": "Carlos Santos",
-            "senha": "3",
+            "senha": "$2b$12$HoDfMsKO3zH2tDp0uJb8pOHqdhuE.l7EEw2uODyXqU4qaMZLDEd8W",
             "nivel": 3
         },
         "rm4@fiap.com.br": {
             "id": 4,
             "nome": "Iury",
-            "senha": "4",
+            "senha": "$2b$12$.s7KinvCvPMpT0xA8OumC.6fcgJsFYWqbHC6XGN/pobNw56OyAIty",
             "nivel": 2
         }
     }
