@@ -77,13 +77,13 @@ views/
 7. As reservas e solicitações são salvas no JSON ao final da execução.
 
 ## Diferencial
-###Descrição
+### Descrição
 	Este projeto implementa uma camada robusta de proteção de dados através da biblioteca bcrypt do Python, garantindo que as senhas dos usuários nunca sejam armazenadas em formato de texto simples. O processo consiste em transformar a senha original em um hash criptográfico irreversível, utilizando um algoritmo que gera automaticamente um "salt" (um valor aleatório exclusivo para cada registro), o que assegura que, mesmo que dois usuários possuam senhas idênticas, seus hashes armazenados no banco de dados sejam completamente diferentes.
 
-###Justificativa
+### Justificativa
 	A escolha do bcrypt é fundamental para a segurança moderna, pois ele foi desenhado para ser computacionalmente "lento" através de um fator de custo ajustável, o que inviabiliza ataques de força bruta em larga escala e protege o sistema contra o uso de Rainbow Tables (tabelas de hashes pré-computados). Em um cenário de vazamento de dados, essa técnica protege a integridade das contas dos usuários, demonstrando conformidade com as melhores práticas de cibersegurança e legislações de privacidade, como a LGPD, ao tratar informações sensíveis com o devido rigor técnico.
 
-###Referencias
+### Referencias
 	https://www-geeksforgeeks-org.translate.goog/python/how-to-hash-passwords-in-python/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true
 	https://medium.com/py-bcrypt/encriptando-senhas-em-python-com-bcrypt-25e46b5c8166
 	https://pypi.org/project/bcrypt/
