@@ -96,4 +96,4 @@ O arquivo `data/database.json` contém a base inicial do sistema, incluindo:
 
 ## Demonstração
 
-Vídeo de teste do sistema: https://youtu.be/H9c8daBbPYE
+Vídeo de teste do sistema: https://youtu.be/0D8d75-WakY
