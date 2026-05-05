@@ -95,7 +95,7 @@ class db:
         self.set_usuarios(load_users)
         self.set_solicitacoes(load_solicitacao)
 
-    def save_database(self, reservas: list[Reserva], solicitacoes: list[Solicitacao], usuarios: list[Usuario]):
+    def save_database(self, reservas: list[Reserva], solicitacoes: list[Solicitacao], usuarios: list[Usuario], salas: list[dict]):
         """ Salva os dados das variáveis da classe no arquivo JSON. """
 
         with open(diretorio / "data" / "database.json", "r") as f:
@@ -104,6 +104,7 @@ class db:
         data["usuarios"] = {}
         data["solicitacoes"] = []
         data["reservas"] = []
+        data["salas"] = []
 
         for usuario in usuarios:
             data["usuarios"][usuario.get_email()] = {
@@ -134,6 +135,13 @@ class db:
                 "sala": reserva.get_nome_sala(),
                 "data": reserva.get_data(),
                 "horario": reserva.get_horario()
+            })
+        
+        for sala in salas:
+            data["salas"].append({
+                "id": sala['id'],
+                "nome": sala['nome'],
+                "salas": sala['salas']
             })
 
         with open(diretorio / "data" / "database.json", "w") as f:

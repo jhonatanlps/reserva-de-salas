@@ -9,7 +9,8 @@ def shutdown():
     reservas = conexao.get_reservas()
     solicitacoes = conexao.get_solicitacoes()
     usuarios = conexao.get_usuarios()
-    conexao.save_database(reservas, solicitacoes, usuarios)
+    salas = conexao.get_salas()
+    conexao.save_database(reservas, solicitacoes, usuarios, salas)
     print("Alterações salvas no banco de dados.")
 
 if __name__ == '__main__':
