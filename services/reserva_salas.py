@@ -10,7 +10,7 @@ def menu(usuario: Usuario, solicitacoes: list[Solicitacao], reservas: list[Reser
     # Caso o usuário seja um admin, ele tem acesso a todas as funcionalidades, caso contrário, ele tem acesso apenas a algumas funcionalidades.
     if usuario.get_nivel() == 3:
         while(True):
-            print("""\n1 - Verificar solicitações de reserva\n2 - Cancelar reserva\n3 - Restringir acesso\n4 - Sair\n
+            print("""\n1 - Verificar solicitações de reserva\n2 - Visualizar histórico\n3 - Restringir acesso\n4 - Sair\n
                   """)
             
             opcao = int(input("\nDigite a opção que deseja executar:\n"))
@@ -22,7 +22,7 @@ def menu(usuario: Usuario, solicitacoes: list[Solicitacao], reservas: list[Reser
                     admin.reservar_sala(solicitacoes, reservas, usuarios, salas)
                 
                 case 2:
-                    admin.cancelar_reservas(reservas, usuario, salas)
+                    admin.historico(reservas, solicitacoes, usuario, salas)
                     
                 case 3:
                     admin.restringir_sala(salas)
@@ -36,7 +36,7 @@ def menu(usuario: Usuario, solicitacoes: list[Solicitacao], reservas: list[Reser
                     
     else:
         while(True):
-            print("""1 - Buscar salas\n2 - Cancelar reserva\n3 - Sair\n
+            print("""1 - Buscar salas\n2 - Visualizar histórico\n3 - Sair\n
                   """)
             
             opcao = int(input("Digite a opção que deseja executar: "))
@@ -46,7 +46,7 @@ def menu(usuario: Usuario, solicitacoes: list[Solicitacao], reservas: list[Reser
                     buscar_salas(reservas, solicitacoes, salas, usuario, datas, horarios)
                 
                 case 2:  
-                    usuario.cancelar_reservas(reservas, usuario, salas)
+                    usuario.historico(reservas, solicitacoes, usuario, salas)
                     
                 case 3:
                     
